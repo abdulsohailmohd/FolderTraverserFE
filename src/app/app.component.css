@@ -1,0 +1,12 @@
+body{
+    background: #f0f5f9;
+}
+
+
+.my-container{
+    background: #fbfde2;
+    border-radius: 7px;
+    padding-top: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px #ccc;
+}

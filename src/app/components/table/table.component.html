@@ -1,0 +1,51 @@
+<div class="current-path">{{currentPath}}</div>
+<div class="my-2">
+  <button class="btn btn-primary" (click)="goBack()"><i class="mdi mdi-arrow-up"></i></button>
+  <button class="btn btn-tertiary ml-2" (click)="goHome()"><i class="mdi mdi-home"></i></button>
+  <button class="btn btn-secondary ml-2" (click)="refresh()"><i class="mdi mdi-refresh"></i></button>
+  <button class="btn btn-info float-right ml-3" (click)="showFileUpload = true">
+    <i class="mdi mdi-plus-circle-outline mr-2"></i>Add File
+  </button>
+  <button class="btn btn-success float-right" (click)="showNewFolderOpt = true">
+    <i class="mdi mdi-plus-circle-outline mr-2"></i>New Folder
+  </button>
+</div>
+<table class="table table-bordered table-sm table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Created By</th>
+    <th>Date Modified</th>
+  </thead>
+  <tbody>
+    <tr *ngIf="showNewFolderOpt">
+      <td>
+        <form (ngSubmit)="createNewFolder()">
+          <input type="text" placeholder="Folder Name" class="p-1" name="directoryName" [(ngModel)]="directoryName">
+          <input type="text" placeholder="Created By" class="p-1 ml-2" name="createdBy" [(ngModel)]="createdBy">
+          <button type="submit" class="ml-2 btn btn-primary">Save</button>
+          <button class="btn btn-default ml-2" (click)="cancelNewFolder()">Cancel</button>
+        </form>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngIf="showFileUpload">
+      <td>
+        <form (ngSubmit)="uploadFile()">
+          <!-- <input type="text" class="form-control mb-2" placeholder="File Name" name="fileName" [(ngModel)]="fileName"> -->
+          <input type="file" class="mb-2" (change)="onFileChange($event)">
+          <input type="text" class="mb-2" placeholder="Created By" name="createdBy" [(ngModel)]="createdBy">
+          <button type="submit" class="ml-2 btn btn-primary">Add</button>
+          <button class="btn btn-default ml-2" (click)="resetFileUpload()">Cancel</button>
+        </form>
+      </td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr *ngFor="let row of tableRows">
+      <td><a (click)="changeFolder(row.path)"><i class="mdi" [ngClass]="getIcon(row.type)"></i> {{row.title}}</a></td>
+      <td>{{row.createdBy}}</td>
+      <td>{{row.lastModified}}</td>
+    </tr>
+  </tbody>
+</table>
